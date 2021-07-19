@@ -1,7 +1,14 @@
+## Toolchain
+- Kotlin - programming language
+- Spring Boot - application framework
+- PostgresSQL - chosen db server
+- Flyway - db migration tool
+- Testconainers - "real" Integration tests for spawning up a PostgresSQL Docker container
+- 
+
 ## Intro
-This project is used to coach a new spring boot developer to:
  - implement a simple bank restful service
- - implement a clean testing strategy (a lot Unit-Tests, less Tests with full Application Context, less Integration Tests)
+ - implement a clean testing strategy ( Unit-Tests, less Tests with full Application Context, less Integration Tests)
  
 
 ## Testing
@@ -34,13 +41,18 @@ that a specific custom error page is rendered. If you need to test these lower-l
 fully running server.
 
 ## Test with application context
-- `mvn -Dtest=PersonControllerWebClientTest#test_getPerson test`
+```
+mvn -Dtest=PersonControllerWebClientTest#test_getPerson test
+```
 
 ## Test Web Layer with sliced application context
-- `mvn -Dtest=PersonControllerTest#test_getPerson_classic test`
-
+```
+mvn -Dtest=PersonControllerTest#test_getPerson_classic test
+```
 ## Test without application context KontoServiceTest
-- `mvn -Dtest=KontoServiceTest test`
+```
+mvn -Dtest=KontoServiceTest test
+```
 
 ### Integration Tests with Testcontainers
 - Starts the application and a PostgresSQL Docker Container
