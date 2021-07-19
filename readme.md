@@ -1,6 +1,7 @@
-# Coach
-This project ist used to coach new spring boot developer to:
+## Intro
+This project is used to coach a new spring boot developer to:
  - implement a simple bank restful service
+ - implement a clean testing stategy (a lot Unit-Tests, less Tests with Application Context, less Integration Tests)
  
 
 ## Testing
