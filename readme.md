@@ -19,10 +19,6 @@ For Spring Newbies i highly recommend following the official docs, to keep testi
 If you need to start a full running server, we recommend that you use random ports.
 If you use @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT), an available port is picked at random each time your test runs.
 
-The @LocalServerPort annotation can be used to inject the actual port used into your test.
-For convenience, tests that need to make REST calls to the started server can 
-additionally @Autowire a WebTestClient, which resolves relative links to the running server 
-and comes with a dedicated API for verifying responses, as shown in the following example:
 ### Testing with a mock environment
 `By default, @SpringBootTest does not start the server. 
 If you have web endpoints that you want to test against this mock environment, 
