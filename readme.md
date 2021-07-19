@@ -3,8 +3,7 @@
 - Spring Boot - application framework
 - PostgresSQL - chosen db server
 - Flyway - db migration tool
-- Testconainers - "real" Integration tests for spawning up a PostgresSQL Docker container
-- 
+- Testcontainers - "real" Integration tests for spawning up a PostgresSQL Docker container during JUnit Tests
 
 ## Intro
  - implement a simple bank restful service
