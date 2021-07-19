@@ -1,7 +1,10 @@
 package com.nusmanov.demobankservice
 
+import com.nusmanov.demobankservice.domain.konto.KontoDto
+import com.nusmanov.demobankservice.domain.konto.KontoService
 import com.nusmanov.demobankservice.domain.person.PersonEntity
 import com.nusmanov.demobankservice.domain.person.PersonRepository
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
@@ -10,10 +13,11 @@ import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.springframework.test.web.reactive.server.WebTestClient
+import org.springframework.transaction.annotation.Transactional
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
-import javax.transaction.Transactional
+import java.math.BigDecimal
 
 /**
  * 26.3.6. Testing with a running server
@@ -23,13 +27,17 @@ import javax.transaction.Transactional
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
-class IntegrationPersonTest {
+class IntegrationWithDatabaseTest {
 
     @Autowired
     lateinit var personRepository: PersonRepository
 
     @Autowired
     lateinit var webTestClient: WebTestClient
+
+    @Autowired
+    lateinit var kontoService: KontoService
+
 
     companion object {
 
@@ -75,5 +83,35 @@ class IntegrationPersonTest {
             .expectBody()
             .jsonPath("$.vorname").isEqualTo("Tom")
             .jsonPath("$.kundennummer").isNotEmpty
+    }
+
+    @Test
+    fun test_saveKonto() {
+        // prepare
+        val nr =
+            personRepository.save(PersonEntity(vorname = "Tom", nachname = "Sawyer", geschlecht = "m")).kundennummer
+        val kontoDto = KontoDto("Test", BigDecimal.TEN, "1234", BigDecimal.ZERO, setOf(nr) as Set<Long>)
+
+        // act
+        val kontoEntity = kontoService.save(kontoDto)
+
+        // verify
+        val savedKontoDto = kontoService.findByKontonummer(kontoEntity.kontonummer!!)
+        assertThat(savedKontoDto.name).isEqualTo("Test")
+        assertThat(savedKontoDto.guthaben).isEqualByComparingTo(BigDecimal.TEN)
+        assertThat(savedKontoDto.dispolimit).isEqualByComparingTo(BigDecimal.ZERO)
+    }
+
+     @Test
+    fun test_saveKonto_wihtout_owner() {
+        // prepare
+        val kontoDto = KontoDto("Test123", BigDecimal.TEN, "1234", BigDecimal.ZERO, setOf())
+
+        // act
+        val kontoEntity = kontoService.save(kontoDto)
+
+        // verify
+        val savedKontoDto = kontoService.findByKontonummer(kontoEntity.kontonummer!!)
+        assertThat(savedKontoDto.name).isEqualTo("Test123")
     }
 }

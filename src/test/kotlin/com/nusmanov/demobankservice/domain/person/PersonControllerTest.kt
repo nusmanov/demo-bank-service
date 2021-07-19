@@ -34,7 +34,7 @@ internal class PersonControllerTest {
     @Test
     fun test_getPerson_modern_DSL() {
         // prepare
-        given(personService.findByKundennummer(anyLong())).willReturn(PersonDto("Tom", "Sawyer", "m"))
+        given(personService.findByKundennummer(anyLong())).willReturn(PersonDto("Tom", "Sawyer", geschlecht = "m"))
 
         // act & verify
         mvc.get("/person/88888")
@@ -48,7 +48,7 @@ internal class PersonControllerTest {
     @Test
     fun test_getPerson_classic() {
         // prepare
-        given(personService.findByKundennummer(anyLong())).willReturn(PersonDto("Tom", "Sawyer", "m"))
+        given(personService.findByKundennummer(anyLong())).willReturn(PersonDto("Tom", "Sawyer", geschlecht = "m"))
 
         // act & verify
         mvc.perform(MockMvcRequestBuilders.get("/person/88888"))

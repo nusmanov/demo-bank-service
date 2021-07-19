@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface KontoRepository : CrudRepository<KontoEntity, Long>{
 
-    fun findByKontonummer(kontonummer:Long)
-    fun deleteByKontonummer(kontonummer: Long)
+    fun findByKontonummer(kontonummer:Long) : KontoEntity?
 }

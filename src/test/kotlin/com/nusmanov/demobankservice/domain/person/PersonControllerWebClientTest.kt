@@ -28,7 +28,7 @@ internal class PersonControllerWebClientTest {
     @Test
     fun test_getPerson() {
         // prepare
-        given(personService.findByKundennummer(anyLong())).willReturn(PersonDto("Tom", "Sawyer", "m"))
+        given(personService.findByKundennummer(anyLong())).willReturn(PersonDto("Tom", "Sawyer", geschlecht = "m"))
 
         // act & verify
         webTestClient.get().uri("/person/88888")

@@ -19,4 +19,8 @@ class PersonService(@Autowired val personRepository: PersonRepository) {
             personRepository.findByKundennummer(kundennummer) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
         )
     }
+
+    fun findByKundennummerIn(kundennummerSet: Set<Long>): Set<PersonEntity> {
+        return personRepository.findByKundennummerIn(kundennummerSet)
+    }
 }
