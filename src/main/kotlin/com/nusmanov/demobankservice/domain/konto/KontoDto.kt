@@ -6,11 +6,11 @@ import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.Size
 
 data class KontoDto(
-    @NotEmpty
+    @field:NotEmpty
     val name: String,
     val guthaben: BigDecimal = BigDecimal.ZERO,
-    @NotEmpty
-    @Size(min = 4, max = 6)
+    @field:NotEmpty
+    @field:Size(min = 4, max = 6)
     val pin: String,
     val dispolimit: BigDecimal = BigDecimal.ZERO,
     val inhaberKundennummer: Set<Long> = mutableSetOf()
