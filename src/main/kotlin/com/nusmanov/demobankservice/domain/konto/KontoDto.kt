@@ -11,6 +11,7 @@ data class KontoDto(
     val guthaben: BigDecimal = BigDecimal.ZERO,
     @field:NotEmpty
     @field:Size(min = 4, max = 6)
+    // TODO persist only hashed secrets
     val pin: String,
     val dispolimit: BigDecimal = BigDecimal.ZERO,
     val inhaberKundennummer: Set<Long> = mutableSetOf()

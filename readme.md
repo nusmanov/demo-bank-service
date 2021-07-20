@@ -8,7 +8,12 @@
 ## Intro
  - implement a simple bank restful service
  - implement a clean testing strategy ( Unit-Tests, less Tests with full Application Context, less Integration Tests)
- 
+
+## Next steps
+ - persist only encoded secrets (like account pin)
+ - replace konto.guthaben with 1:n relation konto <> buchung
+ - POST /buchung -d {kontonummer, wert, datum, pin}
+ - POST /ueberweisung -d {senderKontoNr, empfaengerKontoNr, wert, pin}           
 
 ## Testing
 Please pay attention, that this Readme is a summary and cites from docs.spring.io.
